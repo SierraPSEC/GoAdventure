@@ -48,7 +48,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     @Override
     public void surfaceCreated(SurfaceHolder holder){
         bg = new Background(BitmapFactory.decodeResource(getResources(),R.drawable.grassbg1));
-        player = new Player(BitmapFactory.decodeResource(getResources(),R.drawable.helicopter), 65, 25, 3);
+        player = new Player(BitmapFactory.decodeResource(getResources(),R.drawable.helicopter), 98, 40, 3);
         thread.setRunning(true);
         thread.start();
     }
