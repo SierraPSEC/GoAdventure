@@ -6,3 +6,9 @@ Modified GamePanel.java to scale background
 Modified Background.java to fix the loop
 Modified Player.Java to add pseudo boundaries, need to find way to remove black navbar on the bottom of the screen.
 Incoroporated Jones animation update and modified Gamepanel dimension of frame to work with mine.
+
+3/3/16 jqkiger:
+Renamed some variables to clarify their use
+Modified Gamepanel.java - scales sprites so the animation works on any screen size
+Modified missile.png - removed white background 
+(Unfinished)Added Projectile.java  - planned to create an example of collision detection, only animation loop implemented
