@@ -1,1 +1,3 @@
+03/02/16 jjones: Corrected Helicopter animation.
+
 02/22/16 Mackin: Created the very first version of the game, it's kinda like flappy bird. Click the screen to move the helicopter up. Helicopter image loops strangely, and I haven't got the background to scale right.

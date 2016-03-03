@@ -17,7 +17,7 @@ public class Player extends GameObject{
 
     public Player(Bitmap res, int w, int h, int numFrames){
         x = 100;
-        y = GamePanel.HEIGHT/2;
+        y = GamePanel.HEIGHT/4;
         dy = 0;
         score = 0;
         height=h;
@@ -27,11 +27,11 @@ public class Player extends GameObject{
         spritesheet = res;
 
         for (int i = 0; i < image.length; i++){
-            image[i] = Bitmap.createBitmap(spritesheet, i*width, 0, width, height);
+            image[i] = Bitmap.createBitmap(spritesheet, width*i, 0, width, height);
         }
 
         animation.setFrames(image);
-        animation.setDelay(10);
+        animation.setDelay(180);
         startTime = System.nanoTime();
     }
 
