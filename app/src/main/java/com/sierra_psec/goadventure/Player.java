@@ -10,6 +10,8 @@ import android.graphics.drawable.Animatable;
 public class Player extends GameObject{
     private Bitmap spritesheet;
     private int score;
+    private int height;
+    private int width;
     private boolean up;
     private boolean playing;
     private Animation animation = new Animation();
@@ -17,21 +19,21 @@ public class Player extends GameObject{
 
     public Player(Bitmap res, int w, int h, int numFrames){
         x = 100;
-        y = GamePanel.HEIGHT/2;
+        y = GamePanel.screenY/4;
         dy = 0;
         score = 0;
-        height=h;
-        width = w;
+         height=h;
+         width = w;
 
-        Bitmap[] image = new Bitmap[numFrames];
-        spritesheet = res;
+        Bitmap[] image = new Bitmap[numFrames]; // create new array with size = number of frames in animation
+        spritesheet = res; //set spritesheet = bitmap res
 
         for (int i = 0; i < image.length; i++){
             image[i] = Bitmap.createBitmap(spritesheet, i*width, 0, width, height);
         }
 
         animation.setFrames(image);
-        animation.setDelay(10);
+        animation.setDelay(180);
         startTime = System.nanoTime();
     }
 
@@ -46,16 +48,25 @@ public class Player extends GameObject{
         animation.update();
 
         if(up){
-            dy -= 4; //acceleration
+            dy -= 4; //if touching screen move up
         }
         else{
-            dy += 1;
+            dy += 1; // if not touching screen move down
         }
 
         if(dy>14)dy = 14;
         if(dy<-14)dy = -14;
 
+        if (y<1){ // upper boundary
+            dy = 1;
+        }
+
+        else if (y>GamePanel.screenY){ //Lower boundary. The Need to find way to remove navbar on bottom
+            dy=-1;
+        }
+
         y += dy*2;
+
 
     }
 
