@@ -1,3 +1,10 @@
 03/02/16 jjones: Corrected Helicopter animation.
 
 02/22/16 Mackin: Created the very first version of the game, it's kinda like flappy bird. Click the screen to move the helicopter up. Helicopter image loops strangely, and I haven't got the background to scale right.
+
+03/2/16 Jqkiger: 
+Modified MainActivity.java to get screensize
+Modified GamePanel.java to scale background
+Modified Background.java to fix the loop
+Modified Player.Java to add pseudo boundaries, need to find way to remove black navbar on the bottom of the screen.
+Incoroporated Jones animation update and modified Gamepanel dimension of frame to work with mine.
