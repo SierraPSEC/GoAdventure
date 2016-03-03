@@ -64,18 +64,22 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
 
     @Override
     public void surfaceCreated(SurfaceHolder holder){
-<<<<<<< HEAD
+
         bg = new Background(BitmapFactory.decodeResource(getResources(),R.drawable.grassbg1));
         player = new Player(BitmapFactory.decodeResource(getResources(),R.drawable.helicopter), 98, 40, 3);
-=======
+
         grassbg1 = BitmapFactory.decodeResource(getResources(), R.drawable.grassbg1);
+
+//This block of code doesn't work - JMackin
+/*
         int bgWidth=grassbg1.getWidth();
         grassbg1 = Bitmap.createScaledBitmap(grassbg1,bgWidth, screenY, false); // rescale background to for screen
 
         bg = new Background(grassbg1); //create new background using newly scaled bitmap
 
         player = new Player(BitmapFactory.decodeResource(getResources(),R.drawable.helicopter), 195, 100, 3);
->>>>>>> 67cfcf15c08defe0507ea6aa8494101c599b4fca
+
+*/
         thread.setRunning(true);
         thread.start();
     }
