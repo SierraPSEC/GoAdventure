@@ -6,20 +6,26 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
-
+import android.app.Activity;
+import android.graphics.Point;
+import android.view.Display;
 public class MainActivity extends Activity {
+
+    GamePanel GamePanel; //  initialize
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Get a Display object to access screen details
+        Display display = getWindowManager().getDefaultDisplay();
+        // Load the resolution into a Point object
+        Point size = new Point();
+        display.getSize(size);
 
-        //turn title off
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        // Initialize gameView and set it as the view
+        GamePanel = new GamePanel(this, size.x, size.y);
+        setContentView(GamePanel);
 
-        //set to full screen
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        setContentView(new GamePanel(this));
     }
 
 
