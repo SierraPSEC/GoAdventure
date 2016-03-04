@@ -33,6 +33,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     private Projectile projectile;
     private Background bg;
     private Player player;
+    private Enemy testEnemy1;
+    private Enemy testEnemy2;
+    private Enemy testEnemy3;
 
     public GamePanel(Context context, int x, int y){
 
@@ -87,6 +90,12 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
         player = new Player(helicopter, 195, 100, 3);
         projectile =  new Projectile(missile,150,50,13);
 
+
+        testEnemy1= new Enemy(70,70);
+        testEnemy2= new Enemy(200,300);
+        testEnemy3= new Enemy(70,800);
+
+
         thread.setRunning(true);
         thread.start();
     }
@@ -114,6 +123,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
             bg.update();
             player.update();
             projectile.update();
+            testEnemy1.update();
+            testEnemy2.update();
+            testEnemy3.update();
         }
     }
 
@@ -126,6 +138,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
             canvas.scale(scaleFactorX,scaleFactorY);
             bg.draw(canvas);
             player.draw(canvas);
+            testEnemy1.draw(canvas);
+            testEnemy2.draw(canvas);
+            testEnemy3.draw(canvas);
             projectile.draw(canvas);
             canvas.restoreToCount(savedState);
        }

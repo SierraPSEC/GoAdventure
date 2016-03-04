@@ -4,20 +4,20 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
 /**
- * Created by Jonathan on 3/3/2016.
+ * Created by Jonathan as Projectile.java
+ * Copied by jjones on 3/3/2016.
  */
-public class Projectile
-{
+public class JetEnemy {
     private Bitmap spriteSheet;
     private Animation animation = new Animation();
     private long startTime;
     int height;
     int width;
     int dx;
-    int projectileX;
-    int projectileY=100;//Player.y; // set missile first frame to be the same as helicopter
+    int enemyX;
+    int projectileY=Player.playerY; // set missile first frame to be the same as helicopter
 
-    public Projectile(Bitmap res, int w, int h, int numFrames)
+    public JetEnemy(Bitmap res, int w, int h, int numFrames)
     {
         dx = 1;
         height =h;
@@ -47,17 +47,16 @@ public class Projectile
 
         animation.update();
 
-        projectileX += dx*5;
-        if((projectileX)>(GamePanel.screenX)){
-            projectileX=5;
-            projectileY=Player.playerY; // sets the location of the missle when resetting to be the same as the copter at that moment
-        }
+        //enemyXX += dx*5;
+        //if((projectileX)>(GamePanel.screenX)){
+       //     projectileX=5;
+        //    projectileY=Player.playerY; // sets the location of the missle when resetting to be the same as the copter at that moment
+       // }
 
     }
 
     public void draw(Canvas canvas) {
-        canvas.drawBitmap(animation.getImage(),projectileX,projectileY,null);
+        canvas.drawBitmap(animation.getImage(),enemyX,projectileY,null);
     }
 
 }
-

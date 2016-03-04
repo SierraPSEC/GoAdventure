@@ -12,6 +12,7 @@ public class Player extends GameObject{
     private int score;
     private int height;
     private int width;
+    //FIXME: you already have a x and y position variable from GameObject, why create a duplicate?
     public static int playerX;
     public static int playerY;
     private boolean up;

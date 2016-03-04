@@ -18,3 +18,10 @@ Modified Gamepanel.java - scales sprites so the animation works on any screen si
 Modified missile.png - removed white background 
 (Unfinished)Added Projectile.java  - planned to create an example of collision detection, only animation loop implemented
 >>>>>>> b272cab013478f7a071a20632c8c460cac837d0a
+
+03/03/16 pbjones07:
+-Added jetenemy.png
+-Copied Projectile.java over as JetEnemy.java and started modifying as enemy (WIP)
+-Modified projectile so that it's Y value isn't updated with player
+-Edited projectile so that when it is reset, it is launched from players current y position
+
