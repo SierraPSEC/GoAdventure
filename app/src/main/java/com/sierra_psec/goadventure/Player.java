@@ -12,18 +12,18 @@ public class Player extends GameObject{
     private int score;
     private int height;
     private int width;
+    public static int playerX;
+    public static int playerY;
     private boolean up;
     private boolean playing;
     private Animation animation = new Animation();
     private long startTime;
 
     public Player(Bitmap res, int w, int h, int numFrames){
-        x = 100;
-<<<<<<< HEAD
-        y = GamePanel.HEIGHT/4;
-=======
-        y = GamePanel.screenY/4;
->>>>>>> 67cfcf15c08defe0507ea6aa8494101c599b4fca
+
+        playerX = 100;
+        playerY = GamePanel.screenY/4;
+
         dy = 0;
         score = 0;
          height=h;
@@ -40,6 +40,8 @@ public class Player extends GameObject{
         animation.setDelay(180);
         startTime = System.nanoTime();
     }
+
+
 
     public void setUp(boolean b){up = b;}
 
@@ -61,21 +63,20 @@ public class Player extends GameObject{
         if(dy>14)dy = 14;
         if(dy<-14)dy = -14;
 
-        if (y<1){ // upper boundary
+        if (playerY<1){ // upper boundary
             dy = 1;
         }
 
-        else if (y>GamePanel.screenY){ //Lower boundary. The Need to find way to remove navbar on bottom
+        else if (playerY>GamePanel.screenY){ //Lower boundary. The Need to find way to remove navbar on bottom
             dy=-1;
         }
 
-        y += dy*2;
+        playerY += dy*2;
 
 
     }
-
     public void draw(Canvas canvas){
-        canvas.drawBitmap(animation.getImage(),x,y,null);
+        canvas.drawBitmap(animation.getImage(),playerX,playerY,null);
     }
 
     public int getScore(){return score;}
@@ -85,3 +86,4 @@ public class Player extends GameObject{
     public void resetScore(){score = 0;}
 
 }
+
