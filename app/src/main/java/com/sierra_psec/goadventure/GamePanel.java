@@ -21,7 +21,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     public static int screenX;
     public static int screenY;
     private Bitmap grassbg1;
-
+    private Bitmap helicopter;
+    private Bitmap missile;
 
 
 
@@ -29,6 +30,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     //public static final int HEIGHT = 480;
     public static final int MOVESPEED = -5;
     private MainThread thread;
+    private Projectile projectile;
     private Background bg;
     private Player player;
 
@@ -65,21 +67,26 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     @Override
     public void surfaceCreated(SurfaceHolder holder){
 
-        bg = new Background(BitmapFactory.decodeResource(getResources(),R.drawable.grassbg1));
         player = new Player(BitmapFactory.decodeResource(getResources(),R.drawable.helicopter), 98, 40, 3);
 
         grassbg1 = BitmapFactory.decodeResource(getResources(), R.drawable.grassbg1);
 
-//This block of code doesn't work - JMackin
-/*
+
         int bgWidth=grassbg1.getWidth();
         grassbg1 = Bitmap.createScaledBitmap(grassbg1,bgWidth, screenY, false); // rescale background to for screen
 
+        helicopter = BitmapFactory.decodeResource(getResources(), R.drawable.helicopter);
+        helicopter = Bitmap.createScaledBitmap(helicopter, 600, 115, false);
+
+
+
+        missile = BitmapFactory.decodeResource(getResources(), R.drawable.missile);
+        missile= Bitmap.createScaledBitmap(missile, 150, 655, false);
+
         bg = new Background(grassbg1); //create new background using newly scaled bitmap
+        player = new Player(helicopter, 195, 100, 3);
+        projectile =  new Projectile(missile,150,50,13);
 
-        player = new Player(BitmapFactory.decodeResource(getResources(),R.drawable.helicopter), 195, 100, 3);
-
-*/
         thread.setRunning(true);
         thread.start();
     }
@@ -106,6 +113,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
         if(player.getPlaying()){
             bg.update();
             player.update();
+            projectile.update();
         }
     }
 
@@ -118,6 +126,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
             canvas.scale(scaleFactorX,scaleFactorY);
             bg.draw(canvas);
             player.draw(canvas);
+            projectile.draw(canvas);
             canvas.restoreToCount(savedState);
        }
 
