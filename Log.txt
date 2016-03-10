@@ -25,3 +25,10 @@ Modified missile.png - removed white background
 -Modified projectile so that it's Y value isn't updated with player
 -Edited projectile so that when it is reset, it is launched from players current y position
 
+03/10/2016 blubs: 
+-added Vector2 class and several methods to facilitate 2d vector math.
+-added prototype enemy class that displays some new behaviours
+	-accelerates towards the player position
+	-rotates to face the player position
+	-is drawn as a series of vertices connected by a border and filled in using a solid color (no bitmap)
+-placed 3 prototype "enemies" in the world.
