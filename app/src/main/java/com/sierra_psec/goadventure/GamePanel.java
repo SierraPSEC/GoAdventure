@@ -20,9 +20,13 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     // The size of the screen in pixels
     public static int screenX;
     public static int screenY;
+
+    // Drawables and Bitmaps
     private Bitmap grassbg1;
     private Bitmap helicopter;
     private Bitmap missile;
+
+
 
 
 
@@ -32,10 +36,15 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     private MainThread thread;
     private Projectile projectile;
     private Background bg;
+
     private Player player;
     private Enemy testEnemy1;
     private Enemy testEnemy2;
     private Enemy testEnemy3;
+
+
+    //Interface
+    private UserInterface playInterface;
 
     public GamePanel(Context context, int x, int y){
 
@@ -70,9 +79,13 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     @Override
     public void surfaceCreated(SurfaceHolder holder){
 
+        //Set up user interface
+        playInterface = new UserInterface(getContext(), screenX, screenY);
+
         player = new Player(BitmapFactory.decodeResource(getResources(),R.drawable.helicopter), 98, 40, 3);
 
         grassbg1 = BitmapFactory.decodeResource(getResources(), R.drawable.grassbg1);
+
 
 
         int bgWidth=grassbg1.getWidth();
@@ -107,14 +120,21 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
             if(!player.getPlaying()) {
                 player.setPlaying(true);
             }
+            if(playInterface.isFirePressed(event.getX(), event.getY())){
+                System.out.println("Touched");
+
+            }
+
             player.setUp(true);
             return true;
         }
 
-        if(event.getAction()==MotionEvent.ACTION_UP){
+        if(event.getAction() == MotionEvent.ACTION_UP){
             player.setUp(false);
+            playInterface.resetFireButton();
             return true;
         }
+
         return super.onTouchEvent(event);
     }
 
@@ -126,6 +146,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
             testEnemy1.update();
             testEnemy2.update();
             testEnemy3.update();
+            playInterface.update();
         }
     }
 
@@ -142,6 +163,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
             testEnemy2.draw(canvas);
             testEnemy3.draw(canvas);
             projectile.draw(canvas);
+            playInterface.draw(canvas);
             canvas.restoreToCount(savedState);
        }
 
