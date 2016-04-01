@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -156,14 +157,27 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
         final float scaleFactorY = getHeight()/(screenY*1.f);
         if(canvas!=null) {
             final int savedState = canvas.save();
-            canvas.scale(scaleFactorX,scaleFactorY);
-            bg.draw(canvas);
+            canvas.scale(scaleFactorX, scaleFactorY);
+
+            //While we mock up the look of the game, this section is going to be
+            // a clusterfuck
+            //TODO: refactor all of these individual objects into classes
+            //bg.draw(canvas);
+            //Set the background to black
+            canvas.drawColor(Color.BLACK);
+
             player.draw(canvas);
             testEnemy1.draw(canvas);
             testEnemy2.draw(canvas);
             testEnemy3.draw(canvas);
-            projectile.draw(canvas);
-            playInterface.draw(canvas);
+
+            Paint p = new Paint();
+            p.setARGB(255,104, 104, 104);
+            canvas.drawRect(0,0, 30, screenY, p);
+            canvas.drawRect(screenX - 30,0, screenX, screenY, p);
+
+            //projectile.draw(canvas);
+            //playInterface.draw(canvas);
             canvas.restoreToCount(savedState);
        }
 

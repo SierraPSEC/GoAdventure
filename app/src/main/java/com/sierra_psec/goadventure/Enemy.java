@@ -6,6 +6,8 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
+import android.graphics.Rect;
+import android.util.Log;
 
 /**
  * Created by Luis on 3/10/2016.
@@ -73,9 +75,12 @@ public class Enemy extends GameObject
                             // FIXME: but multiply speed by fraction of second that frame occurred over to get this frame's displacement
     }
 
+    int color1=128;
+    int color2=128;
+    int color3=128;
     public void draw(Canvas canvas)
     {
-        Path polygon = new Path();
+        /*Path polygon = new Path();
 
         polygon.moveTo(this.x - width / 2 + width*mesh[0].x, this.y - height / 2 + height*mesh[0].y);
         for (int i = 1; i < mesh.length; i++) {
@@ -91,6 +96,26 @@ public class Enemy extends GameObject
         p.setColor(Color.RED);
 
         canvas.drawPath(polygon,p);
+*/
+
+        color1 = (int)(Math.random()*255.0f);
+        color2 = (int)(Math.random()*255.0f);
+        color3 = (int)(Math.random()*255.0f);
+
+	   Paint p = new Paint();
+        p.setARGB(64, color1, color2, color3);
+        int thickness;
+        for(int i = 24; i < 84; i+= 10)
+        {
+            thickness = i;
+            canvas.drawRect(this.x-(thickness/2), this.y-300, this.x+(thickness/2), this.y+300, p);
+        }
+        p.setARGB(128, 255, 255, 255);
+        thickness = 8;
+        canvas.drawRect(this.x-(thickness/2), this.y-300, this.x+(thickness/2), this.y+300, p);
+        thickness = 16;
+        canvas.drawRect(this.x-(thickness/2), this.y-300, this.x+(thickness/2), this.y+300, p);
+
 
 
     }
