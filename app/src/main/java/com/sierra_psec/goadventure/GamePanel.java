@@ -80,7 +80,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     public void surfaceCreated(SurfaceHolder holder){
 
         //Set up user interface
-        playInterface = new UserInterface(getContext(), screenX, screenY);
+        playInterface = new UserInterface(getContext());
 
         player = new Player(BitmapFactory.decodeResource(getResources(),R.drawable.helicopter), 98, 40, 3);
 
@@ -117,8 +117,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     public boolean onTouchEvent(MotionEvent event){
 
         if(event.getAction()==MotionEvent.ACTION_DOWN){
-            if(!player.getPlaying()) {
-                player.setPlaying(true);
+            //Might want to do some stuff if the person pressed down. Not sure.
+            if(playInterface.isPlayPressed(event.getX(), event.getY())){
+
             }
             if(playInterface.isFirePressed(event.getX(), event.getY())){
                 System.out.println("Touched");
@@ -130,6 +131,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
         }
 
         if(event.getAction() == MotionEvent.ACTION_UP){
+            if(!player.getPlaying() && playInterface.isPlayPressed(event.getX(), event.getY())) {
+                player.setPlaying(true);
+                playInterface.removePlayButton();
+            }
             player.setUp(false);
             playInterface.resetFireButton();
             return true;

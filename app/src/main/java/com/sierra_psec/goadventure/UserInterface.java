@@ -11,28 +11,56 @@ import android.content.res.Resources;
  */
 public class UserInterface {
 
-	private Bitmap attackButton;
-	private Bitmap attackDown;
-	private Bitmap attackUp;
+	//Attack Button
+	private Bitmap attackButton, attackDown, attackUp;
+	private int attackButtonX, attackButtonY;
+	//Play Button
+	private Bitmap playButton, playDown, playUp;
+	private int playButtonX, playButtonY;
+	private boolean drawPlayButton = true;
+
+
+
 	private Context context;
 
-	private int screenX, screenY;
 
-	public UserInterface(Context context, int screenX, int screenY){
+	public UserInterface(Context context){
 		this.context = context;
-		this.screenX = screenX;
-		this.screenY = screenY;
 		setupResources();
 	}
 
-
+	/**
+	 * Sets up the resources for the button.
+	 */
 	private void setupResources(){
+		//*******************************************//
+		//**********SET UP ATTACK BUTTON*************//
+		//*******************************************//
 		attackButton = BitmapFactory.decodeResource(context.getResources(), R.drawable.attackup);
 		attackDown = BitmapFactory.decodeResource(context.getResources(), R.drawable.attackdown);
 		//Scale bitmaps
 		attackDown = Bitmap.createScaledBitmap(attackDown, 200,200, false);
 		attackButton = Bitmap.createScaledBitmap(attackButton, 200, 200, false);
 		attackUp = attackButton;
+		attackButtonX=800;
+		attackButtonY=1500;
+
+		//******************************************//
+		//************SET UP PLAY BUTTON************//
+		//******************************************//
+		playButton = BitmapFactory.decodeResource(context.getResources(), R.drawable.playup);
+		playDown = BitmapFactory.decodeResource(context.getResources(), R.drawable.playdown);
+		//Scale bitmaps
+		playButton = Bitmap.createScaledBitmap(playButton, 200, 200, false);
+		playDown = Bitmap.createScaledBitmap(playDown, 200, 200, false);
+		playUp = playButton;
+		playButtonX=500;
+		playButtonY=500;
+
+
+
+
+
 	}
 
 	/**
@@ -42,9 +70,26 @@ public class UserInterface {
 	 * @return If it's within range or not.
 	 */
 	public boolean isFirePressed(float touchX, float touchY) {
-		if (touchX >= screenX / 2 && touchX < (screenX / 2 + attackButton.getWidth())
-				&& touchY >= screenY / 2 && touchY < (screenY / 2 + attackButton.getHeight())) {
+		if (touchX >= attackButtonX && touchX < (attackButtonX + attackButton.getWidth())
+				&& touchY >= attackButtonY && touchY < (attackButtonY + attackButton.getHeight())) {
 			attackButton = attackDown;
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * Checks to see if the play button was pressed.
+	 * @param touchX
+	 * @param touchY
+	 * @return
+	 */
+	public boolean isPlayPressed(float touchX, float touchY){
+		if (touchX >= playButtonX && touchX < (playButtonX + playButton.getWidth())
+				&& touchY >= playButtonY && touchY < (playButtonY + playButton.getHeight())
+				&& drawPlayButton == true) {
+			playButton = playDown;
 			return true;
 		} else {
 			return false;
@@ -58,12 +103,21 @@ public class UserInterface {
 		attackButton = attackUp;
 	}
 
+	/**
+	 * Removes the play button. For pressing.
+	 */
+	public void removePlayButton(){
+		drawPlayButton=false;
+	}
+
 	public void update(){
 
 	}
 	public void draw(Canvas canvas){
-
-		canvas.drawBitmap(attackButton,screenX/2,screenY/2,null);
+		if(drawPlayButton == true) {
+			canvas.drawBitmap(playButton, playButtonX, playButtonY, null);
+		}
+		canvas.drawBitmap(attackButton,attackButtonX,attackButtonY,null);
 	}
 
 }
