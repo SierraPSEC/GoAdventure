@@ -14,7 +14,8 @@ public class MainActivity extends Activity {
     GamePanel GamePanel; //  initialize
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         // Get a Display object to access screen details
         Display display = getWindowManager().getDefaultDisplay();
@@ -25,6 +26,7 @@ public class MainActivity extends Activity {
         // Initialize gameView and set it as the view
         GamePanel = new GamePanel(this, size.x, size.y);
         setContentView(GamePanel);
+
 
     }
 

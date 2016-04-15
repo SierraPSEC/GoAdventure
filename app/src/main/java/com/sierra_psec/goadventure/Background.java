@@ -22,7 +22,7 @@ public class Background {
         scale = GamePanel.screenY/bgHeight; // background is shorter than screen height, so need to find by what factor
 
         image = res;
-        dx = GamePanel.MOVESPEED;
+//        dx = GamePanel.MOVESPEED;
     }
 
     public void update(){
