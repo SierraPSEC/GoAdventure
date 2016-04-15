@@ -65,6 +65,7 @@ public class Game implements Scene
 	}
 	public void render(Canvas canvas)
 	{
+		//TODO: a lot
 		//Draw the background
 		//Draw the player
 		//Draw other obstacles

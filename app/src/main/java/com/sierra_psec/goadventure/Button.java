@@ -48,5 +48,5 @@ public class Button
 		return true;
 	}
 
-	//TODO: if we decide on doing polygon based button drawing, add a draw function here.
+	//TODO: if we decide on doing polygon based button drawing, add a general-purpose draw function here.
 }
