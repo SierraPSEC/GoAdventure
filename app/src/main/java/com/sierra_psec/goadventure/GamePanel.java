@@ -167,7 +167,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
             //While we mock up the look of the game, this section is going to be
             // a clusterfuck
             //TODO: refactor all of these individual objects into classes
-            //bg.draw(canvas);
+            bg.draw(canvas);
             //Set the background to black
             canvas.drawColor(Color.BLACK);
 
@@ -181,8 +181,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
             canvas.drawRect(0,0, 30, screenY, p);
             canvas.drawRect(screenX - 30,0, screenX, screenY, p);
 
-            //projectile.draw(canvas);
-            //playInterface.draw(canvas);
+            projectile.draw(canvas);
+            playInterface.draw(canvas);
             canvas.restoreToCount(savedState);
        }
 
