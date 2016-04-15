@@ -1,0 +1,15 @@
+﻿-Trying an initial push to make sure this branch doesn't override anything before I start deleting old stuff (cleaning up the project)
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch test_scene_management
+# Changes to be committed:
+#	modified:   app/src/main/java/com/sierra_psec/goadventure/Background.java
+#	new file:   app/src/main/java/com/sierra_psec/goadventure/Button.java
+#	new file:   app/src/main/java/com/sierra_psec/goadventure/Game.java
+#	modified:   app/src/main/java/com/sierra_psec/goadventure/GamePanel.java
+#	modified:   app/src/main/java/com/sierra_psec/goadventure/MainActivity.java
+#	new file:   app/src/main/java/com/sierra_psec/goadventure/MainMenu.java
+#	new file:   app/src/main/java/com/sierra_psec/goadventure/PauseMenu.java
+#	new file:   app/src/main/java/com/sierra_psec/goadventure/Scene.java
+#
+
