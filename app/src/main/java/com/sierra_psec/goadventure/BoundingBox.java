@@ -83,4 +83,11 @@ public class BoundingBox {
         return ret;
     }
 
+    public void updateXPos(float delta) {
+        topLeft.x += delta;
+        topRight.x += delta;
+        botLeft.x += delta;
+        botRight.x += delta;
+    }
+
 }
