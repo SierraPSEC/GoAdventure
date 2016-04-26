@@ -14,7 +14,7 @@ public class Game implements Scene
 	BoundingBox leftBorder;
 	BoundingBox rightBorder;
     Player player;
-	static double playerSpeed = 0.75 * GamePanel.screenY; //75% of the screen per second
+	static double playerSpeed = 0.75f; //75% of the screen per second
 
 //	private Projectile projectile;
 
@@ -27,11 +27,11 @@ public class Game implements Scene
 		Vector2 pos = new Vector2(0.55f,0.04f);
 		pauseButton = new Button(pos,0.35f,0.125f);
 		pos = new Vector2(0,0);
-		leftBorder = new BoundingBox(pos, GamePanel.screenX / 10, GamePanel.screenY);
-        pos = new Vector2(((GamePanel.screenX / 10)*9), 0); //9/10s of the way across the top of the screen
-        rightBorder = new BoundingBox(pos, GamePanel.screenX / 10, GamePanel.screenY);
-        pos = new Vector2((GamePanel.screenX / 2), ((GamePanel.screenY / 4)*3));
-        player = new Player(pos);
+		leftBorder = new BoundingBox(pos, 0.1f, 1.0f);
+		pos = new Vector2((0.9f), 0); //9/10s of the way across the top of the screen
+		rightBorder = new BoundingBox(pos, 0.1f, 1.0f);
+		pos = new Vector2((0.5f), (0.75f));
+		player = new Player(pos);
 		return true;
 	}
 	public void handleInput(MotionEvent event)
@@ -86,25 +86,25 @@ public class Game implements Scene
         //Draw the background
         //Draw the player
         p.setARGB(255, 250, 20, 20);
-        canvas.drawRect(player.bbox.topLeft.x,
-                player.bbox.topLeft.y,
-                player.bbox.botRight.x,
-                player.bbox.botRight.y, p);
+        canvas.drawRect(player.bbox.topLeft.x * GamePanel.screenX,
+                player.bbox.topLeft.y * GamePanel.screenY,
+                player.bbox.botRight.x * GamePanel.screenX,
+                player.bbox.botRight.y * GamePanel.screenY, p);
 
         //Draw other obstacles
 
 
         //Draw the side wall borders
         p.setARGB(255, 60, 60, 60);
-        canvas.drawRect(leftBorder.topLeft.x,
-                leftBorder.topLeft.y,
-                leftBorder.botRight.x,
-                leftBorder.botRight.y, p);
+        canvas.drawRect(leftBorder.topLeft.x * GamePanel.screenX,
+                leftBorder.topLeft.y * GamePanel.screenY,
+                leftBorder.botRight.x * GamePanel.screenX,
+                leftBorder.botRight.y * GamePanel.screenY, p);
 
-        canvas.drawRect(rightBorder.topLeft.x,
-                rightBorder.topLeft.y,
-                rightBorder.botRight.x,
-                rightBorder.botRight.y, p);
+        canvas.drawRect(rightBorder.topLeft.x * GamePanel.screenX,
+                rightBorder.topLeft.y * GamePanel.screenY,
+                rightBorder.botRight.x * GamePanel.screenX,
+                rightBorder.botRight.y * GamePanel.screenY, p);
 
         //Drawing the UI
 
