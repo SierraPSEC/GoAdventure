@@ -53,42 +53,34 @@ public class BoundingBox
 
 	public boolean isColliding(BoundingBox box)
 	{
-		/*System.out.println("Top Left " + box.topLeft.x + "," + box.topLeft.y);
-		System.out.println("Top Right " + box.topRight.x + "," + box.topRight.y);
-		System.out.println("Bot Right " + box.botRight.x + "," + box.botRight.y);
-		System.out.println("Bot Left " + box.botLeft.x + "," + box.botLeft.y);
-		System.out.println("Center " + box.center.x + "," + box.center.y);*/
-		/*
-		System.out.println("Checking collision...\n");
-		//Bottom left corner
-		if (box.botLeft.x > topLeft.x && box.botLeft.x < topRight.x && box.botLeft.y > topLeft.y && box.botLeft.y < botLeft.y)
-		{
-			System.out.println("Collision 1...\n");
+		//First checking if this object's corners are in the other box
+		if (botLeft.x > box.topLeft.x && botLeft.x < box.topRight.x && botLeft.y > box.topLeft.y && botLeft.y < box.botLeft.y)
 			return true;
-		}
 		//Bottom right corner
-		else if (box.botRight.x > topLeft.x && box.botRight.x < topRight.x && box.botRight.y > topLeft.y && box.botRight.y < botLeft.y)
-		{
-			System.out.println("Collision 2...\n");
+		if (botRight.x > box.topLeft.x && botRight.x < box.topRight.x && botRight.y > box.topLeft.y && botRight.y < box.botLeft.y)
 			return true;
-		}
 		//Top right corner
-		else if (box.topRight.x > topLeft.x && box.topRight.x < topRight.x && box.topRight.y > topLeft.y && box.topRight.y < botLeft.y)
-		{
-			System.out.println("Collision 3...\n");
+		if (topRight.x > box.topLeft.x && topRight.x < box.topRight.x && topRight.y > box.topLeft.y && topRight.y < box.botLeft.y)
 			return true;
-		}
 		//Top left corner
-		else if (box.topLeft.x > topLeft.x && box.topLeft.x < topRight.x && box.topLeft.y > topLeft.y && box.topLeft.y < botLeft.y)
-		{
-			System.out.println("Collision 4...\n");
+		if (topLeft.x > box.topLeft.x && topLeft.x < box.topRight.x && topLeft.y > box.topLeft.y && topLeft.y < box.botLeft.y)
 			return true;
-		}
-		else
-		{//no box corners are inside our box
-			System.out.println("not colliding\n");
-			return false;
-		}*/
+
+		//Second checking if the other's objects corners are in our box
+		//Bottom left corner
+		if(box.botLeft.x > topLeft.x && box.botLeft.x < topRight.x && box.botLeft.y > topLeft.y && box.botLeft.y < botLeft.y)
+			return true;
+		//Bottom right corner
+		if(box.botRight.x > topLeft.x && box.botRight.x < topRight.x && box.botRight.y > topLeft.y && box.botRight.y < botLeft.y)
+			return true;
+		//Top right corner
+		if(box.topRight.x > topLeft.x && box.topRight.x < topRight.x && box.topRight.y > topLeft.y && box.topRight.y < botLeft.y)
+			return true;
+		//Top left corner
+		if(box.topLeft.x > topLeft.x && box.topLeft.x < topRight.x && box.topLeft.y > topLeft.y && box.topLeft.y < botLeft.y)
+			return true;
+		//No collision
+		return false;
 	}
 
 	public boolean isColliding(BoundingTri tri)

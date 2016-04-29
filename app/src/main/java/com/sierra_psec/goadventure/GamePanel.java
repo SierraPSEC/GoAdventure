@@ -123,7 +123,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 	public void update()
 	{
 		//TODO: get actual delta time. (time since last frame)
-		float delta = 1.0f/30.0f;//this is assuming exactly 60 fps
+		float delta = 1.0f/60.0f;//this is assuming exactly 60 fps
 		//NOTE: looks like 30fps to me, we should research phone screen refresh rates, to
 		// see if 30 is all we can get or if we can go up to 60 -Nick
 		switch(gameState)

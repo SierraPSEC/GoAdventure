@@ -86,7 +86,7 @@ public class Game implements Scene
 		}
 
 		player.pos.x += (delta * player.vel.x);
-		player.updatePos(delta);
+		player.updatePos(delta * player.vel.x);
 	}
 
 	public void render(Canvas canvas)
