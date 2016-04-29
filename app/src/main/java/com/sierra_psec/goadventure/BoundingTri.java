@@ -22,7 +22,6 @@ public class BoundingTri {
     //create a default size triangle w/ predefined height (might only use this if out prisms are only 1 size)
     BoundingTri(Vector2 startPoint, boolean right)
     {
-
         topVertex = new Vector2(startPoint);
         botVertex = new Vector2(startPoint.x, startPoint.y + DEFAULT_LEN);
 
