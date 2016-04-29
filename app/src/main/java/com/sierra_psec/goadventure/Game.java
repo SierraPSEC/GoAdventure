@@ -49,6 +49,9 @@ public class Game implements Scene
 				pauseButton.touchID = touchID;
 				return;
 			}
+			else {
+				player.vel.x *= -1;
+			}
 
 		}
 		//Checking for touch release events

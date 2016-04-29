@@ -1,5 +1,7 @@
 package com.sierra_psec.goadventure;
 
+import android.util.LruCache;
+
 /**
  * Created by E6410 on 4/24/2016
  * special case bounding for prisms, which will be triangle shapes, and possibly filters if we give them a trapezoid shape
@@ -52,5 +54,9 @@ public class BoundingTri {
             isRight = false;
             LRvertex = new Vector2(startPoint.x - h, startPoint.y + h);
         }
+    }
+
+    public Vector2 getLRvertex() {
+        return LRvertex;
     }
 }
