@@ -10,22 +10,24 @@ import android.util.LruCache;
 public class BoundingTri {
 
     private final double ROOT_TWO = 1.41421; //square root of 2 to five decimals
-    private final float DEFAULT_HEIGHT = 75; //temp value
-    private final float DEFAULT_LEN = 150; //temp value
+    private final float DEFAULT_HEIGHT = 0.15f; //temp value
+    private final float DEFAULT_LEN = 0.3f; //temp value
 
-    public float h;
+    public float h; //distance from border x to LRvertex.x
     public Vector2 topVertex;
     public boolean isRight; //true = right, false = left
 
     public Vector2 LRvertex;
     public Vector2 botVertex;
-    public float l;
+    public float l; //vertical distance of triangle, 2*h
 
     //create a default size triangle w/ predefined height (might only use this if out prisms are only 1 size)
     BoundingTri(Vector2 startPoint, boolean right)
     {
         topVertex = new Vector2(startPoint);
         botVertex = new Vector2(startPoint.x, startPoint.y + DEFAULT_LEN);
+        l = DEFAULT_LEN;
+        h = DEFAULT_HEIGHT;
 
         if (right == true) {
             isRight = true;
@@ -58,5 +60,19 @@ public class BoundingTri {
 
     public Vector2 getLRvertex() {
         return LRvertex;
+    }
+
+    public void updateYPos(float delta)
+    {
+        topVertex.y += delta;
+        LRvertex.y += delta;
+        botVertex.y += delta;
+    }
+
+    public void resetYPos(float delta)
+    {
+        topVertex.y = delta;
+        LRvertex.y = delta + h;
+        botVertex.y = delta + l;
     }
 }

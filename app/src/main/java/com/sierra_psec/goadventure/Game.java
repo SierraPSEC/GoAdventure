@@ -9,6 +9,7 @@ import android.view.MotionEvent;
  */
 public class Game implements Scene
 {
+
 	//Pauses the game and brings up the pause menu
 	Button pauseButton;
 	BoundingBox leftBorder;
@@ -16,13 +17,22 @@ public class Game implements Scene
 	Player player;
 	static float playerSpeed = 0.75f; //75% of the screen per second
 
-	//	private Projectile projectile;
+	//arrays of the obstacles the player will encounter
+	Block[] blocks;
+	Filter[] filters;
+	Prism[] prisms;
 
-	//	private Player player;
+	Block block1;
+	Filter filter1, filter2, filter3;
+	Prism prism1, prism2;
 
 
 	public boolean initialize()
 	{
+		blocks = new Block[1];
+		filters = new Filter[3];
+		prisms = new Prism[2];
+
 		//Place this button in the top right corner
 		Vector2 pos = new Vector2(0.55f, 0.04f);
 		pauseButton = new Button(pos, 0.35f, 0.125f);
@@ -32,6 +42,28 @@ public class Game implements Scene
 		rightBorder = new BoundingBox(pos, 0.1f, 1.0f);
 		pos = new Vector2((0.5f), (0.75f));
 		player = new Player(pos);
+
+		pos = new Vector2((0.4f), (-0.2f));
+		block1= new Block(pos, 0.2f, 0.2f);
+
+		pos = new Vector2((0.1f), (-0.4f));
+		filter1 = new Filter(pos, 0.15f, 0.15f, 0);
+		pos = new Vector2((0.7f), (-0.4f));
+		filter2 = new Filter(pos, 0.15f, 0.15f, 1);
+		pos = new Vector2((0.4f), (-0.4f));
+		filter3 = new Filter(pos, 0.15f, 0.15f, 2);
+
+		pos = new Vector2((0.1f), (-0.3f));
+		prism1 = new Prism(pos, true);
+		pos = new Vector2((0.9f), (-0.3f));
+		prism2 = new Prism(pos, false);
+
+		blocks[0] = block1;
+		filters[0] = filter1;
+		filters[1] = filter2;
+		filters[2] = filter3;
+		prisms[0] = prism1;
+		prisms[1] = prism2;
 		return true;
 	}
 
@@ -75,8 +107,7 @@ public class Game implements Scene
 
 	public void update(float delta)
 	{
-		//TODO: handle collisions, movement for now
-		// if player collides w/ borders, x * -1, then update pos
+		//updating player vs borders
 		if (player.bbox.isColliding(leftBorder) && player.vel.x < 0)
 		{
 			System.out.println("Colliding with left border.\n");
@@ -86,6 +117,46 @@ public class Game implements Scene
 		{
 			System.out.println("Colliding with right border.\n");
 			player.vel.x *= -1;
+		}
+		//updating blocks
+		for (int i = 0; i < blocks.length; i++) {
+			if (player.bbox.isColliding(blocks[i].bbox)) {
+				blocks[i].onCollide();
+				player.resetColor();//temp color behavior for demo purposes
+			}
+
+			if (blocks[i].bbox.topLeft.y > 1.0f) {//box just disappeared off bottom of screen
+				blocks[i].resetPos(-0.2f); //TODO: figure out a prescreen start y pos for game objects
+			}
+			blocks[i].pos.y += (delta * playerSpeed);
+			blocks[i].updatePos(delta * playerSpeed);
+		}
+		//updating filters
+		for (int i = 0; i < filters.length; i++) {
+			if (player.bbox.isColliding(filters[i].bbox)) {
+				filters[i].onCollide();
+				player.changeColor(filters[i].color);
+			}
+
+			if (filters[i].bbox.topLeft.y > 1.0f) {
+				filters[i].resetPos(-0.4f);
+			}
+			filters[i].pos.y += (delta * playerSpeed);
+			filters[i].updatePos(delta * playerSpeed);
+		}
+
+		//update prisms
+		for (int i = 0; i < prisms.length; i++) {
+			if (player.bbox.isColliding(prisms[i].btri)) {
+				prisms[i].onCollide();
+				player.resetColor();
+			}
+
+			if (prisms[i].btri.topVertex.y > 1.0f) {
+				prisms[i].resetPos(-0.4f);
+			}
+			prisms[i].pos.y += (delta * playerSpeed);
+			prisms[i].updatePos(delta * playerSpeed);
 		}
 
 		player.pos.x += (delta * player.vel.x);
@@ -98,14 +169,18 @@ public class Game implements Scene
 		//TODO: a lot
 		//Draw the background
 		//Draw the player
-		p.setARGB(255, 250, 20, 20);
-		canvas.drawRect(player.bbox.topLeft.x * GamePanel.screenX,
-			   player.bbox.topLeft.y * GamePanel.screenY,
-			   player.bbox.botRight.x * GamePanel.screenX,
-			   player.bbox.botRight.y * GamePanel.screenY, p);
+		player.draw(canvas);
 
 		//Draw other obstacles
-
+		for (int i = 0;i < blocks.length;i++) {
+			blocks[i].draw(canvas);
+		}
+		for (int i = 0;i < filters.length;i++) {
+			filters[i].draw(canvas);
+		}
+		for (int i = 0;i < prisms.length;i++) {
+			prisms[i].draw(canvas);
+		}
 
 		//Draw the side wall borders
 		p.setARGB(255, 60, 60, 60);

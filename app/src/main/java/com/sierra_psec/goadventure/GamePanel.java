@@ -170,7 +170,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 				break;
 			case STATE_GAME:
 				//Drawing background as yellow to test
-				canvas.drawColor(Color.YELLOW);
+				canvas.drawColor(Color.BLACK);
 				game.render(canvas);
 				break;
 			case STATE_PAUSEMENU:

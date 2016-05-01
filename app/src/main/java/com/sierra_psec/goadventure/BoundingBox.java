@@ -87,16 +87,25 @@ public class BoundingBox
 	{
 		//since only the player will be colliding with prisms, we're only concerned with the top left and right corners of the box
 		boolean ret = false;
-		if (tri.isRight == false)
+		if (!tri.isRight)
 		{
-			double rat = (topRight.y - tri.LRvertex.y) / (topRight.x - tri.LRvertex.x);
-			if (rat < 1)
-				ret = true;
-		} else
+			if (topRight.y > tri.LRvertex.y) {//cant collide when its beyond halfway
+				ret = false;
+			}
+			if (topRight.x > tri.LRvertex.x && topRight.y < tri.botVertex.y) {
+				if (((topRight.y - tri.LRvertex.y) / (topRight.x - tri.LRvertex.x)) < 1.0f)
+					ret = true;
+			}
+		}
+		else
 		{ //right facing triangle
-			double rat = (tri.LRvertex.y - topLeft.y) / (tri.LRvertex.x - topLeft.x);
-			if (rat < 1)
-				ret = true;
+			if (topLeft.y > tri.LRvertex.y) {
+				ret = false;
+			}
+			if (topLeft.x < tri.LRvertex.x) {
+				if (((topLeft.y - tri.LRvertex.y) / (tri.LRvertex.x - topLeft.x)) < 1.0f)
+					ret = true;
+			}
 		}
 		return ret;
 	}
@@ -108,6 +117,24 @@ public class BoundingBox
 		botLeft.x += delta;
 		botRight.x += delta;
 		center.x += delta;
+	}
+
+	public void updateYPos(float delta)
+	{
+		topLeft.y += delta;
+		topRight.y += delta;
+		botLeft.y += delta;
+		botRight.y += delta;
+		center.y += delta;
+	}
+
+	public void resetYPos(float delta, float height)
+	{
+		topLeft.y = delta;
+		topRight.y = delta;
+		botLeft.y = delta + height;
+		botRight.y = delta + height;
+		center.y = delta + (height/2);
 	}
 
 }
