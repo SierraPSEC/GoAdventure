@@ -19,6 +19,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 {
 	//What state we are currently in.
 	static int gameState = 1;
+	public static float ASPECT_RATIO;
 	//Constants for game state.
 	static final int STATE_SPLASHSCREEN = 0;//TODO: implement this
 	static final int STATE_MAINMENU = 1;
@@ -50,6 +51,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 
 		screenX = x; // width of screen
 		screenY = y; // height of screen
+
+		ASPECT_RATIO = ((float)screenY)/((float)screenX);
 
 		//make gamePanel focusable to handle events
 		setFocusable(true);

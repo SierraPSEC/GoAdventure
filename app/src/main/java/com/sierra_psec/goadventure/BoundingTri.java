@@ -10,8 +10,8 @@ import android.util.LruCache;
 public class BoundingTri {
 
     private final double ROOT_TWO = 1.41421; //square root of 2 to five decimals
-    private final float DEFAULT_HEIGHT = 0.15f; //temp value
-    private final float DEFAULT_LEN = 0.3f; //temp value
+    private final float DEFAULT_HEIGHT = 0.08f; //temp value
+    private final float DEFAULT_LEN = DEFAULT_HEIGHT * 2.0f; //temp value
 
     public float h; //distance from border x to LRvertex.x
     public Vector2 topVertex;
@@ -31,11 +31,11 @@ public class BoundingTri {
 
         if (right == true) {
             isRight = true;
-            LRvertex = new Vector2(startPoint.x + DEFAULT_HEIGHT, startPoint.y + DEFAULT_HEIGHT);
+            LRvertex = new Vector2(startPoint.x + (DEFAULT_HEIGHT * GamePanel.ASPECT_RATIO), startPoint.y + DEFAULT_HEIGHT );
         }
         else {
             isRight = false;
-            LRvertex = new Vector2(startPoint.x - DEFAULT_HEIGHT, startPoint.y + DEFAULT_HEIGHT);
+            LRvertex = new Vector2(startPoint.x - (DEFAULT_HEIGHT * GamePanel.ASPECT_RATIO), startPoint.y + DEFAULT_HEIGHT);
         }
 
     }

@@ -43,14 +43,14 @@ public class Game implements Scene
 		pos = new Vector2((0.5f), (0.75f));
 		player = new Player(pos);
 
-		pos = new Vector2((0.4f), (-0.2f));
-		block1= new Block(pos, 0.2f, 0.2f);
+		pos = new Vector2((0.4f), (-0.1f));
+		block1= new Block(pos, 0.2f, 0.1f);
 
-		pos = new Vector2((0.1f), (-0.4f));
+		pos = new Vector2((0.1f), (-0.7f));
 		filter1 = new Filter(pos, 0.15f, 0.15f, 0);
-		pos = new Vector2((0.7f), (-0.4f));
+		pos = new Vector2((0.7f), (-0.7f));
 		filter2 = new Filter(pos, 0.15f, 0.15f, 1);
-		pos = new Vector2((0.4f), (-0.4f));
+		pos = new Vector2((0.4f), (-0.7f));
 		filter3 = new Filter(pos, 0.15f, 0.15f, 2);
 
 		pos = new Vector2((0.1f), (-0.3f));
