@@ -89,20 +89,15 @@ public class BoundingBox
 		boolean ret = false;
 		if (!tri.isRight)
 		{
-			if (topRight.y > tri.LRvertex.y) {//cant collide when its beyond halfway
-				ret = false;
-			}
-			if (topRight.x > tri.LRvertex.x && topRight.y < tri.botVertex.y) {
+			if (topRight.x > tri.LRvertex.x && topRight.y < tri.botVertex.y && topRight.y > tri.LRvertex.y) {
 				if (((topRight.y - tri.LRvertex.y) / (topRight.x - tri.LRvertex.x)) < 1.0f)
 					ret = true;
 			}
 		}
 		else
 		{ //right facing triangle
-			if (topLeft.y > tri.LRvertex.y) {
-				ret = false;
-			}
-			if (topLeft.x < tri.LRvertex.x) {
+
+			if (topLeft.x < tri.LRvertex.x && topLeft.y > tri.LRvertex.y) {
 				if (((topLeft.y - tri.LRvertex.y) / (tri.LRvertex.x - topLeft.x)) < 1.0f)
 					ret = true;
 			}

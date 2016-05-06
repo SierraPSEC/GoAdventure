@@ -2,7 +2,6 @@ package com.sierra_psec.goadventure;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.view.animation.BounceInterpolator;
 
 /**
  * Created by E6410 on 4/24/2016.
