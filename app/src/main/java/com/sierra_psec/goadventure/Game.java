@@ -1,5 +1,6 @@
 package com.sierra_psec.goadventure;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.view.MotionEvent;
@@ -9,6 +10,8 @@ import android.view.MotionEvent;
  */
 public class Game implements Scene
 {
+	//Need context for resource files.
+	Context context;
 
 	//Pauses the game and brings up the pause menu
 	Button pauseButton;
@@ -25,6 +28,16 @@ public class Game implements Scene
 	Block block1;
 	Filter filter1, filter2, filter3;
 	Prism prism1, prism2;
+
+	//Audio Player and Audio Files.
+	AudioPlayer audioPlayer;
+	AudioFile backgroundMusic = new AudioFile(R.raw.one75);
+	AudioFile sideCollideTest = new AudioFile(R.raw.hittest);
+
+
+	public Game(Context context){
+		this.context = context;
+	}
 
 
 	public boolean initialize()
@@ -64,6 +77,11 @@ public class Game implements Scene
 		filters[2] = filter3;
 		prisms[0] = prism1;
 		prisms[1] = prism2;
+
+
+		audioPlayer = new AudioPlayer(context);
+		audioPlayer.playSound(backgroundMusic,true);
+
 		return true;
 	}
 
@@ -112,11 +130,15 @@ public class Game implements Scene
 		{
 			System.out.println("Colliding with left border.\n");
 			player.vel.x *= -1;
+
+			audioPlayer.playSound(sideCollideTest, false);
 		}
 		if (player.bbox.isColliding(rightBorder) && player.vel.x > 0)
 		{
 			System.out.println("Colliding with right border.\n");
 			player.vel.x *= -1;
+
+			audioPlayer.playSound(sideCollideTest, false);
 		}
 		//updating blocks
 		for (int i = 0; i < blocks.length; i++) {
@@ -161,6 +183,7 @@ public class Game implements Scene
 
 		player.pos.x += (delta * player.vel.x);
 		player.updatePos(delta * player.vel.x);
+
 	}
 
 	public void render(Canvas canvas)

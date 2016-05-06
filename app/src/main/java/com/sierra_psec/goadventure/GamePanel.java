@@ -86,7 +86,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 	{
 		gameState = STATE_MAINMENU;
 		mainMenu = new MainMenu();
-		game = new Game();
+		game = new Game(getContext());
 		pauseMenu = new PauseMenu();
 
 		mainMenu.initialize();
