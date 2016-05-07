@@ -1,69 +1,85 @@
 package com.sierra_psec.goadventure;
 
 import android.content.Context;
-import android.content.res.Resources;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.AsyncTask;
-import android.view.SurfaceHolder;
-
-import java.net.URI;
+import java.util.ArrayList;
 
 /**
  * Created by adamr_000 on 5/6/2016.
  * Very basic audio player. Will expand this weekend.
  */
-public class AudioPlayer {
+public class AudioPlayer{
 
-	private MediaPlayer audioFile;
-	private Context context;
+	private SoundPool mainPool;
+	private BackgroundTask backgroundTask;
+	private ArrayList<Integer> soundID;
+	private ArrayList<Integer> playID;
+	Context context;
 
 	/**
-	 * Sets up a AudioPlayer
+	 * Hand off the context for file privileges.
 	 * @param context
 	 */
 	public AudioPlayer(Context context){
-			this.context = context;
+
+		mainPool = new SoundPool(32, AudioManager.STREAM_MUSIC, 1);
+		this.context = context;
+
+		soundID = new ArrayList<>();
+		playID = new ArrayList<>();
+
 	}
 
 	/**
-	 * Plays a sound given a resource. EX: playsound(R.raw.fileName, true);
-	 * @param resource File resource R.raw.fileName
-	 * @param loop Loops?
+	 * Plays a sound given a resource value. EX: R.raw.audioFile
+	 * @param rawID The ID number of the audio.
+	 * @param loop Sets looping to be true. Used for background music.
 	 */
-	public void playSound(int resource, boolean loop){
-		this.audioFile.release();
-		new BackgroundTask( resource, loop ).execute();
+	public void playSound(int rawID, boolean loop){
+
+		backgroundTask = new BackgroundTask(rawID, loop);
+		backgroundTask.execute();
+
 	}
 
-	/**
-	 * Plays a sound given an AudioFile. EX: playsound(audioFile, false);
-	 * @param audioFile
-	 * @param loop
-	 */
-	public void playSound(AudioFile audioFile, boolean loop){
-
-		new BackgroundTask( audioFile.getFileIndex() , loop ).execute();
-	}
 
 	/**
 	 * Ignore. Used to play sounds in background without interrupting the main loop.
 	 */
-	private class BackgroundTask extends AsyncTask<Void, Void, Void>{
+	private class BackgroundTask extends AsyncTask<Void, Void, Void> {
+
 		int resource = 0;
+		int playIndex = 0;
 		boolean loop = false;
 
 		public BackgroundTask(int resource, boolean loop){
 			this.resource = resource;
 			this.loop = loop;
+
 		}
 
 		@Override
 		protected Void doInBackground(Void... params){
-			audioFile = MediaPlayer.create(context, resource);
-			audioFile.setLooping(loop);
-			audioFile.start();
-			if(audioFile.isPlaying() == false){
-				audioFile.release();
+			if(this.loop == true){
+				MediaPlayer temp = MediaPlayer.create(context, resource);
+				temp.setLooping(true);
+				temp.start();
+
+			} else {
+
+				if (soundID.isEmpty() || (soundID.contains(resource) == false)) {
+					soundID.add(resource);
+					playID.add(mainPool.load(context, resource, 0));
+				}
+
+				playIndex = soundID.indexOf(resource);
+				playIndex = playID.get(playIndex);
+
+				mainPool.play(playIndex, 1, 1, 1, 0, 1);
+
 			}
 			return null;
 		}

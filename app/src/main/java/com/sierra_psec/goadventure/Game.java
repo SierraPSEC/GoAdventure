@@ -1,5 +1,17 @@
 package com.sierra_psec.goadventure;
 
+/*
+ * COPYRIGHT DISCLAIMER:
+ *
+ * 175.wav was originally by an artist using LMMS and is distributed under Artistic Licence 2.0: https://opensource.org/licenses/Artistic-2.0
+ * 175.wav was created by:
+ * Tanner (Tanner)
+ * SOURCE:
+ * https://lmms.io/lsp/?action=show&file=7808
+ *
+ * Just a quotation as to where the music file came from. All I did was cut out a part of his song into an example of a loop.
+ */
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -31,9 +43,6 @@ public class Game implements Scene
 
 	//Audio Player and Audio Files.
 	AudioPlayer audioPlayer;
-	AudioFile backgroundMusic = new AudioFile(R.raw.one75);
-	AudioFile sideCollideTest = new AudioFile(R.raw.hittest);
-
 
 	public Game(Context context){
 		this.context = context;
@@ -80,7 +89,7 @@ public class Game implements Scene
 
 
 		audioPlayer = new AudioPlayer(context);
-		audioPlayer.playSound(backgroundMusic,true);
+		audioPlayer.playSound(R.raw.one75, true);
 
 		return true;
 	}
@@ -131,14 +140,14 @@ public class Game implements Scene
 			System.out.println("Colliding with left border.\n");
 			player.vel.x *= -1;
 
-			audioPlayer.playSound(sideCollideTest, false);
+			audioPlayer.playSound(R.raw.hittest, false);
 		}
 		if (player.bbox.isColliding(rightBorder) && player.vel.x > 0)
 		{
 			System.out.println("Colliding with right border.\n");
 			player.vel.x *= -1;
 
-			audioPlayer.playSound(sideCollideTest, false);
+			audioPlayer.playSound(R.raw.hittest, false);
 		}
 		//updating blocks
 		for (int i = 0; i < blocks.length; i++) {
