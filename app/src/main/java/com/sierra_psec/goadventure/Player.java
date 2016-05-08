@@ -9,8 +9,8 @@ import android.graphics.Paint;
 public class Player
 {
 
-	private final float WI = 0.1f; //TODO: figure out how large the hitbox for the player should be, these are temp vals, should be even num
-	private final float HI = 0.1f * ((float)GamePanel.screenX / (float)GamePanel.screenY);
+	private final float WI = 0.04f; //TODO: figure out how large the hitbox for the player should be, these are temp vals, should be even num
+	private final float HI = 0.04f * ((float)GamePanel.screenX / (float)GamePanel.screenY);
 
 
 	public Vector2 pos; //y is fixed
@@ -35,7 +35,7 @@ public class Player
 		pos = new Vector2(position.x - (WI / 2), position.y);
 		bbox = new BoundingBox(pos, WI, HI);
 		color = 0; //start out white
-		vel = new Vector2(Game.playerSpeed,0);
+		vel = new Vector2(Game.playerSpeed*GamePanel.ASPECT_RATIO,0);
 	}
 
 	public void updatePos(float delta)

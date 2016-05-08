@@ -30,6 +30,7 @@ public class Game implements Scene
 	BoundingBox leftBorder;
 	BoundingBox rightBorder;
 	Player player;
+
 	static float playerSpeed = 0.75f; //75% of the screen per second
 
 	//arrays of the obstacles the player will encounter
@@ -40,6 +41,7 @@ public class Game implements Scene
 	Block block1;
 	Filter filter1, filter2, filter3;
 	Prism prism1, prism2;
+	Trail trail;
 
 	//Audio Player and Audio Files.
 	AudioPlayer audioPlayer;
@@ -64,6 +66,7 @@ public class Game implements Scene
 		rightBorder = new BoundingBox(pos, 0.1f, 1.0f);
 		pos = new Vector2((0.5f), (0.75f));
 		player = new Player(pos);
+		trail = new Trail(player.bbox.center);//instantiated with the players starting pos center
 
 		pos = new Vector2((0.4f), (-0.1f));
 		block1= new Block(pos, 0.2f, 0.1f);
@@ -87,7 +90,6 @@ public class Game implements Scene
 		prisms[0] = prism1;
 		prisms[1] = prism2;
 
-
 		audioPlayer = new AudioPlayer(context);
 		audioPlayer.playSound(R.raw.one75, true);
 
@@ -110,6 +112,7 @@ public class Game implements Scene
 			}
 			else {
 				player.vel.x *= -1;
+				trail.onDirectionChange(player.bbox.center, player.color);
 			}
 
 		}
@@ -139,14 +142,14 @@ public class Game implements Scene
 		{
 			System.out.println("Colliding with left border.\n");
 			player.vel.x *= -1;
-
+			trail.onDirectionChange(player.bbox.center, player.color);
 			audioPlayer.playSound(R.raw.hittest, false);
 		}
 		if (player.bbox.isColliding(rightBorder) && player.vel.x > 0)
 		{
 			System.out.println("Colliding with right border.\n");
 			player.vel.x *= -1;
-
+			trail.onDirectionChange(player.bbox.center, player.color);
 			audioPlayer.playSound(R.raw.hittest, false);
 		}
 		//updating blocks
@@ -154,6 +157,7 @@ public class Game implements Scene
 			if (player.bbox.isColliding(blocks[i].bbox)) {
 				blocks[i].onCollide();
 				player.resetColor();//temp color behavior for demo purposes
+				trail.changeColor(player.color);
 			}
 
 			if (blocks[i].bbox.topLeft.y > 1.0f) {//box just disappeared off bottom of screen
@@ -167,6 +171,7 @@ public class Game implements Scene
 			if (player.bbox.isColliding(filters[i].bbox)) {
 				filters[i].onCollide();
 				player.changeColor(filters[i].color);
+				trail.changeColor(player.color);
 			}
 
 			if (filters[i].bbox.topLeft.y > 1.0f) {
@@ -181,6 +186,7 @@ public class Game implements Scene
 			if (player.bbox.isColliding(prisms[i].btri)) {
 				prisms[i].onCollide();
 				player.resetColor();
+				trail.changeColor(player.color);
 			}
 
 			if (prisms[i].btri.topVertex.y > 1.0f) {
@@ -192,6 +198,7 @@ public class Game implements Scene
 
 		player.pos.x += (delta * player.vel.x);
 		player.updatePos(delta * player.vel.x);
+		trail.update(delta * playerSpeed);
 
 	}
 
@@ -202,17 +209,15 @@ public class Game implements Scene
 		//Draw the background
 		//Draw the player
 		player.draw(canvas);
-
+		trail.draw(canvas);
 		//Draw other obstacles
-		for (int i = 0;i < blocks.length;i++) {
+		for (int i = 0;i < blocks.length;i++)
 			blocks[i].draw(canvas);
-		}
-		for (int i = 0;i < filters.length;i++) {
+		for (int i = 0;i < filters.length;i++)
 			filters[i].draw(canvas);
-		}
-		for (int i = 0;i < prisms.length;i++) {
+		for (int i = 0;i < prisms.length;i++)
 			prisms[i].draw(canvas);
-		}
+
 
 		//Draw the side wall borders
 		p.setARGB(255, 60, 60, 60);
