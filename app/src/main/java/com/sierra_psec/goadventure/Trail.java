@@ -55,18 +55,18 @@ public class Trail {
 
         if (isRight) { //hit something while going right, is about to turn left
             //TODO: fix the inside corners for both directions, they seem to be too much inside
-            rights[1].x += 0.01657f;
-            rights[1].y -= 0.01657f*((float)GamePanel.screenX / (float)GamePanel.screenY);
-            lefts[1].x -= 0.01657f;
-            lefts[1].y += 0.01657f*((float)GamePanel.screenX / (float)GamePanel.screenY);
+            rights[1].x += 0.02f;
+            rights[1].y -= 0.02f*((float)GamePanel.screenX / (float)GamePanel.screenY);
+            lefts[1].x -= 0.02f;
+            lefts[1].y += 0.02f*((float)GamePanel.screenX / (float)GamePanel.screenY);
             left = new Vector2(pos.x-0.02f, pos.y+ASP);
             right = new Vector2(pos.x+0.02f, pos.y-ASP);
         }
         else {//hit something going left, is about to turn right
-            rights[1].x += 0.01657f;
-            rights[1].y += 0.01657f*((float)GamePanel.screenX / (float)GamePanel.screenY);
-            lefts[1].x -= 0.01657f;
-            lefts[1].y -= 0.01657f*((float)GamePanel.screenX / (float)GamePanel.screenY);
+            rights[1].x += 0.02f;
+            rights[1].y += 0.02f*((float)GamePanel.screenX / (float)GamePanel.screenY);
+            lefts[1].x -= 0.02f;
+            lefts[1].y -= 0.02f*((float)GamePanel.screenX / (float)GamePanel.screenY);
             left = new Vector2(pos.x-0.02f, pos.y-ASP);
             right = new Vector2(pos.x+0.02f, pos.y+ASP);
         }
